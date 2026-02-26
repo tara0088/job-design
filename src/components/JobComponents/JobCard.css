@@ -46,9 +46,12 @@
   margin: 0;
 }
 
-.job-card__source-badge {
+.job-card__badges {
   align-self: flex-start;
   margin-left: var(--space-1);
+  display: flex;
+  gap: var(--space-1);
+  flex-wrap: wrap;
 }
 
 .job-card__details {

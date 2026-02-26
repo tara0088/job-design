@@ -3,7 +3,10 @@ import { ContextHeader } from '../components/ContextHeader';
 import { Workspace } from '../components/Workspace';
 import { JobCard, ViewJobModal, FilterBar } from '../components';
 import { EmptyState } from '../components/EmptyState';
+import { Card, CardContent } from '../components/Card';
+import { Button } from '../components/Button';
 import { getSavedJobIds, saveJob, unsaveJob } from '../utils/savedJobs';
+import { getUserPreferences, applyAllFilters, calculateMatchScore } from '../utils/matchScore';
 import jobsData from '../data/jobs.json';
 import './RouteStyles.css';
 
@@ -19,6 +22,8 @@ export function Dashboard() {
   const [savedJobIds, setSavedJobIds] = useState([]);
   const [selectedJob, setSelectedJob] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [preferences, setPreferences] = useState(null);
+  const [showOnlyMatches, setShowOnlyMatches] = useState(false);
   
   const [filters, setFilters] = useState({
     keyword: '',
@@ -26,7 +31,7 @@ export function Dashboard() {
     mode: '',
     experience: '',
     source: '',
-    sortBy: 'latest'
+    sortBy: 'match-score'  // Default to match score sorting
   });
   
   // Get unique values for filter options
@@ -35,69 +40,17 @@ export function Dashboard() {
   const uniqueExperiences = [...new Set(jobs.map(job => job.experience))];
   const uniqueSources = [...new Set(jobs.map(job => job.source))];
   
-  // Load saved job IDs on mount
+  // Load preferences and saved job IDs on mount
   useEffect(() => {
+    setPreferences(getUserPreferences());
     setSavedJobIds(getSavedJobIds());
   }, []);
   
-  // Apply filters whenever jobs or filters change
+  // Apply all filters whenever jobs, filters, preferences, or showOnlyMatches change
   useEffect(() => {
-    let result = [...jobs];
-    
-    // Apply keyword filter
-    if (filters.keyword) {
-      const keyword = filters.keyword.toLowerCase();
-      result = result.filter(job => 
-        job.title.toLowerCase().includes(keyword) || 
-        job.company.toLowerCase().includes(keyword)
-      );
-    }
-    
-    // Apply location filter
-    if (filters.location) {
-      result = result.filter(job => job.location === filters.location);
-    }
-    
-    // Apply mode filter
-    if (filters.mode) {
-      result = result.filter(job => job.mode === filters.mode);
-    }
-    
-    // Apply experience filter
-    if (filters.experience) {
-      result = result.filter(job => job.experience === filters.experience);
-    }
-    
-    // Apply source filter
-    if (filters.source) {
-      result = result.filter(job => job.source === filters.source);
-    }
-    
-    // Apply sorting
-    result.sort((a, b) => {
-      switch (filters.sortBy) {
-        case 'latest':
-          return b.postedDaysAgo - a.postedDaysAgo;
-        case 'oldest':
-          return a.postedDaysAgo - b.postedDaysAgo;
-        case 'salary-high':
-          // Extract numeric value from salary range for comparison
-          const aSal = parseFloat(a.salaryRange.match(/\d+(?:\.\d+)?/)[0]);
-          const bSal = parseFloat(b.salaryRange.match(/\d+(?:\.\d+)?/)[0]);
-          return bSal - aSal;
-        case 'salary-low':
-          const aSalLow = parseFloat(a.salaryRange.match(/\d+(?:\.\d+)?/)[0]);
-          const bSalLow = parseFloat(b.salaryRange.match(/\d+(?:\.\d+)?/)[0]);
-          return aSalLow - bSalLow;
-        case 'title':
-          return a.title.localeCompare(b.title);
-        default:
-          return b.postedDaysAgo - a.postedDaysAgo;
-      }
-    });
-    
+    const result = applyAllFilters(jobs, filters, preferences, showOnlyMatches);
     setFilteredJobs(result);
-  }, [jobs, filters]);
+  }, [jobs, filters, preferences, showOnlyMatches]);
   
   const handleFilterChange = (newFilters) => {
     setFilters(newFilters);
@@ -132,6 +85,15 @@ export function Dashboard() {
     handleCloseModal();
   };
   
+  // Show banner if no preferences are set
+  const showPreferenceBanner = !preferences || !preferences.roleKeywords;
+  
+  // Get job with match scores for display
+  const jobsWithScores = filteredJobs.map(job => ({
+    ...job,
+    matchScore: preferences ? calculateMatchScore(job, preferences) : null
+  }));
+  
   return (
     <div className="route-page">
       <ContextHeader 
@@ -141,6 +103,22 @@ export function Dashboard() {
       <Workspace
         primary={
           <div className="dashboard-content">
+            {showPreferenceBanner && (
+              <Card className="mb-3">
+                <CardContent>
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h3 className="text-lg font-medium mb-1">Set your preferences to activate intelligent matching.</h3>
+                      <p className="text-sm text-caption">Configure your job preferences in the Settings page to see personalized match scores.</p>
+                    </div>
+                    <Button variant="primary" onClick={() => window.location.hash = '/settings'}>
+                      Go to Settings
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+            
             <FilterBar
               filters={filters}
               onFilterChange={handleFilterChange}
@@ -150,14 +128,37 @@ export function Dashboard() {
               uniqueSources={uniqueSources}
             />
             
-            {filteredJobs.length === 0 ? (
+            {preferences && (
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    id="show-matches-toggle"
+                    checked={showOnlyMatches}
+                    onChange={(e) => setShowOnlyMatches(e.target.checked)}
+                    className="w-4 h-4"
+                  />
+                  <label htmlFor="show-matches-toggle" className="text-sm font-medium">
+                    Show only jobs above my threshold ({preferences.minMatchScore || 40}%)
+                  </label>
+                </div>
+                <div className="text-sm text-caption">
+                  Showing {jobsWithScores.length} of {jobs.length} jobs
+                </div>
+              </div>
+            )}
+            
+            {jobsWithScores.length === 0 ? (
               <EmptyState
-                title="No jobs match your search."
-                description="Try adjusting your filters to see more opportunities."
+                title={showOnlyMatches ? "No roles match your criteria" : "No jobs match your search"}
+                description={showOnlyMatches 
+                  ? "Adjust your filters or lower your match threshold in Settings." 
+                  : "Try adjusting your filters to see more opportunities."
+                }
               />
             ) : (
               <div className="jobs-list">
-                {filteredJobs.map(job => (
+                {jobsWithScores.map(job => (
                   <JobCard
                     key={job.id}
                     job={job}
@@ -165,6 +166,7 @@ export function Dashboard() {
                     onSave={handleSaveJob}
                     onApply={handleApplyJob}
                     isSaved={savedJobIds.includes(job.id)}
+                    matchScore={job.matchScore}
                   />
                 ))}
               </div>

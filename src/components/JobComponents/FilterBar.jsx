@@ -22,6 +22,7 @@ export function FilterBar({
   uniqueSources
 }) {
   const sortOptions = [
+    { value: 'match-score', label: 'Match Score' },
     { value: 'latest', label: 'Latest First' },
     { value: 'oldest', label: 'Oldest First' },
     { value: 'salary-high', label: 'Salary: High to Low' },

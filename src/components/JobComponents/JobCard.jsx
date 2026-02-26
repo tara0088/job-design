@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Button } from '../Button';
 import { Badge } from '../Badge';
 import { Card, CardContent } from '../Card';
+import { getScoreBadgeVariant, getScoreLabel } from '../../utils/matchScore';
 import './JobCard.css';
 
 /**
@@ -12,6 +13,7 @@ import './JobCard.css';
  * - experience, salaryRange
  * - source badge
  * - postedDaysAgo
+ * - match score badge (if available)
  * - View, Save, Apply buttons
  */
 export function JobCard({ 
@@ -19,7 +21,8 @@ export function JobCard({
   onView, 
   onSave, 
   onApply,
-  isSaved = false
+  isSaved = false,
+  matchScore = null
 }) {
   const formatDate = (daysAgo) => {
     if (daysAgo === 0) return 'Today';
@@ -35,7 +38,12 @@ export function JobCard({
             <h3 className="job-card__title">{job.title}</h3>
             <p className="job-card__company">{job.company}</p>
           </div>
-          <div className="job-card__source-badge">
+          <div className="job-card__badges">
+            {matchScore !== null && (
+              <Badge variant={getScoreBadgeVariant(matchScore)}>
+                {getScoreLabel(matchScore)}
+              </Badge>
+            )}
             <Badge variant="default">{job.source}</Badge>
           </div>
         </div>
