@@ -7,6 +7,7 @@ import { Card, CardContent } from '../components/Card';
 import { Button } from '../components/Button';
 import { getSavedJobIds, saveJob, unsaveJob } from '../utils/savedJobs';
 import { getUserPreferences, applyAllFilters, calculateMatchScore } from '../utils/matchScore';
+import { applyAllFiltersWithStatus } from '../utils/jobStatus';
 import jobsData from '../data/jobs.json';
 import './RouteStyles.css';
 
@@ -31,6 +32,7 @@ export function Dashboard() {
     mode: '',
     experience: '',
     source: '',
+    status: 'all',
     sortBy: 'match-score'  // Default to match score sorting
   });
   
@@ -48,7 +50,7 @@ export function Dashboard() {
   
   // Apply all filters whenever jobs, filters, preferences, or showOnlyMatches change
   useEffect(() => {
-    const result = applyAllFilters(jobs, filters, preferences, showOnlyMatches);
+    const result = applyAllFiltersWithStatus(jobs, filters, preferences, showOnlyMatches);
     setFilteredJobs(result);
   }, [jobs, filters, preferences, showOnlyMatches]);
   

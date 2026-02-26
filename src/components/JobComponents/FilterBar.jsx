@@ -1,5 +1,6 @@
 import React from 'react';
 import { Input, Select } from '../Input';
+import { STATUS_OPTIONS } from '../../utils/jobStatus';
 import './FilterBar.css';
 
 /**
@@ -89,6 +90,21 @@ export function FilterBar({
             ]}
             value={filters.source}
             onChange={(e) => onFilterChange({ ...filters, source: e.target.value })}
+          />
+        </div>
+        
+        <div className="filter-item">
+          <Select
+            label="Status"
+            options={[
+              { value: 'all', label: 'All Statuses' },
+              ...Object.entries(STATUS_OPTIONS).map(([key, info]) => ({ 
+                value: key, 
+                label: info.label 
+              }))
+            ]}
+            value={filters.status || 'all'}
+            onChange={(e) => onFilterChange({ ...filters, status: e.target.value })}
           />
         </div>
         

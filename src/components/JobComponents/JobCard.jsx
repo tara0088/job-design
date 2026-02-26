@@ -3,6 +3,8 @@ import { Button } from '../Button';
 import { Badge } from '../Badge';
 import { Card, CardContent } from '../Card';
 import { getScoreBadgeVariant, getScoreLabel } from '../../utils/matchScore';
+import { getJobStatus, setJobStatus, STATUS_OPTIONS } from '../../utils/jobStatus';
+import { useToast } from '../Toast/Toast';
 import './JobCard.css';
 
 /**
@@ -24,10 +26,34 @@ export function JobCard({
   isSaved = false,
   matchScore = null
 }) {
+  const { showToast } = useToast();
+  const [jobStatus, setJobStatusState] = useState(getJobStatus(job.id));
+  
   const formatDate = (daysAgo) => {
     if (daysAgo === 0) return 'Today';
     if (daysAgo === 1) return 'Yesterday';
     return `${daysAgo} days ago`;
+  };
+
+  const handleApply = () => {
+    if (onApply) onApply(job);
+  };
+
+  const handleSave = () => {
+    if (onSave) onSave(job);
+  };
+
+  const handleView = () => {
+    if (onView) onView(job);
+  };
+
+  const handleStatusChange = (newStatus) => {
+    setJobStatus(job.id, newStatus);
+    setJobStatusState(newStatus);
+    
+    // Show toast notification
+    const statusInfo = STATUS_OPTIONS[newStatus];
+    showToast(`Status updated: ${statusInfo.label}`, 'info', 3000);
   };
 
   return (
@@ -64,19 +90,35 @@ export function JobCard({
           <span className="job-card__posted">{formatDate(job.postedDaysAgo)}</span>
         </div>
 
+        <div className="job-card__status-section">
+          <div className="job-card__status-label">Application Status:</div>
+          <div className="job-card__status-buttons">
+            {Object.entries(STATUS_OPTIONS).map(([statusKey, statusInfo]) => (
+              <button
+                key={statusKey}
+                className={`job-card__status-button ${jobStatus === statusKey ? 'active' : ''} ${statusInfo.color}`}
+                onClick={() => handleStatusChange(statusKey)}
+                title={statusInfo.label}
+              >
+                {statusInfo.label}
+              </button>
+            ))}
+          </div>
+        </div>
+        
         <div className="job-card__actions">
-          <Button variant="secondary" onClick={() => onView(job)}>
+          <Button variant="secondary" onClick={handleView}>
             View
           </Button>
           <Button 
             variant={isSaved ? "primary" : "secondary"} 
-            onClick={() => onSave(job)}
+            onClick={handleSave}
           >
             {isSaved ? "Saved" : "Save"}
           </Button>
           <Button 
             variant="primary" 
-            onClick={() => onApply(job)}
+            onClick={handleApply}
           >
             Apply
           </Button>

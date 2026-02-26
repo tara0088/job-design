@@ -129,6 +129,90 @@
   justify-content: flex-end;
 }
 
+.job-card__status-section {
+  margin: var(--space-2) 0;
+  padding: var(--space-2);
+  background-color: var(--color-background);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border-subtle);
+}
+
+.job-card__status-label {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-1);
+}
+
+.job-card__status-buttons {
+  display: flex;
+  gap: var(--space-1);
+  flex-wrap: wrap;
+}
+
+.job-card__status-button {
+  flex: 1;
+  min-width: 80px;
+  padding: var(--space-1) var(--space-2);
+  font-family: var(--font-sans);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background-color: white;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-align: center;
+}
+
+.job-card__status-button:hover {
+  border-color: var(--color-border-strong);
+  color: var(--color-text-primary);
+}
+
+.job-card__status-button.active {
+  color: white;
+  font-weight: var(--font-weight-semibold);
+}
+
+.job-card__status-button.neutral {
+  border-color: var(--color-border);
+}
+
+.job-card__status-button.neutral.active {
+  background-color: var(--color-border);
+  border-color: var(--color-border);
+}
+
+.job-card__status-button.info {
+  border-color: var(--color-accent);
+}
+
+.job-card__status-button.info.active {
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.job-card__status-button.success {
+  border-color: var(--color-success);
+}
+
+.job-card__status-button.success.active {
+  background-color: var(--color-success);
+  border-color: var(--color-success);
+}
+
+.job-card__status-button.destructive {
+  border-color: var(--color-error);
+}
+
+.job-card__status-button.destructive.active {
+  background-color: var(--color-error);
+  border-color: var(--color-error);
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .job-card__details {

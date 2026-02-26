@@ -9,6 +9,7 @@ import { getTodaysDigest, generateDailyDigest, saveTodaysDigest,
          formatDigestAsText, createEmailDraftLink, getFormattedDate, 
          hasValidPreferences } from '../utils/dailyDigest';
 import { getUserPreferences } from '../utils/matchScore';
+import { getStatusUpdateHistory } from '../utils/jobStatus';
 import jobsData from '../data/jobs.json';
 import './Digest.css';
 
@@ -22,15 +23,17 @@ export function Digest() {
   const [digestJobs, setDigestJobs] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [preferences, setPreferences] = useState(null);
+  const [statusUpdates, setStatusUpdates] = useState([]);
   const [dateStr] = useState(getFormattedDate());
   
-  // Load preferences and existing digest on mount
+  // Load preferences, existing digest, and status updates on mount
   useEffect(() => {
     setPreferences(getUserPreferences());
     const existingDigest = getTodaysDigest();
     if (existingDigest) {
       setDigestJobs(existingDigest);
     }
+    setStatusUpdates(getStatusUpdateHistory());
   }, []);
   
   // Check if user has valid preferences
@@ -133,8 +136,31 @@ export function Digest() {
               ))}
             </div>
             
+            {/* Status Updates Section */}
+            {statusUpdates.length > 0 && (
+              <div className="digest-status-section">
+                <h3 className="digest-section-title">Recent Status Updates</h3>
+                <div className="digest-status-updates">
+                  {statusUpdates.slice(0, 5).map((update, index) => (
+                    <div key={index} className="digest-status-item">
+                      <div className="digest-status-header">
+                        <span className="digest-status-job">{update.jobId}</span>
+                        <Badge variant={update.status === 'applied' ? 'info' : update.status === 'selected' ? 'success' : 'destructive'}>
+                          {update.status.charAt(0).toUpperCase() + update.status.slice(1)}
+                        </Badge>
+                      </div>
+                      <div className="digest-status-date">
+                        {update.date}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+            
             {/* Footer */}
-            <div className="digest-footer">\              <p className="digest-footer-text">
+            <div className="digest-footer">
+              <p className="digest-footer-text">
                 This digest was generated based on your preferences.
               </p>
               <p className="digest-note">
