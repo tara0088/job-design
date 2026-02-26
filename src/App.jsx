@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { TopNavigation } from './components/TopNavigation';
 import { ToastProvider } from './components/Toast/Toast';
-import { LandingPage, Dashboard, Saved, Digest, Settings, Proof, NotFound } from './routes';
+import { LandingPage, Dashboard, Saved, Digest, Settings, Proof, TestChecklist, ShipCheck, NotFound } from './routes';
 import './App.css';
 
 /**
@@ -33,6 +33,8 @@ function App() {
               <Route path="/digest" element={<Digest />} />
               <Route path="/settings" element={<Settings />} />
               <Route path="/proof" element={<Proof />} />
+              <Route path="/jt/07-test" element={<TestChecklist />} />
+              <Route path="/jt/08-ship" element={<ShipCheck />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>

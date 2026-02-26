@@ -10,4 +10,6 @@ export { Saved } from './Saved';
 export { Digest } from './Digest';
 export { Settings } from './Settings';
 export { Proof } from './Proof';
+export { TestChecklist } from './TestChecklist';
+export { ShipCheck } from './ShipCheck';
 export { NotFound } from './NotFound';

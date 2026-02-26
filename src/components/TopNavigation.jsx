@@ -23,6 +23,11 @@ export function TopNavigation() {
     { to: '/proof', label: 'Proof' },
   ];
 
+  const devLinks = [
+    { to: '/jt/07-test', label: 'Test' },
+    { to: '/jt/08-ship', label: 'Ship' },
+  ];
+
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
@@ -53,6 +58,21 @@ export function TopNavigation() {
               {link.label}
             </NavLink>
           ))}
+          
+          {/* Developer Tools */}
+          <div className="top-navigation__dev-tools">
+            {devLinks.map((link) => (
+              <NavLink
+                key={link.to}
+                to={link.to}
+                className={({ isActive }) =>
+                  `top-navigation__dev-link ${isActive ? 'top-navigation__dev-link--active' : ''}`
+                }
+              >
+                {link.label}
+              </NavLink>
+            ))}
+          </div>
         </div>
 
         {/* Mobile Hamburger Button */}
@@ -87,6 +107,22 @@ export function TopNavigation() {
             {link.label}
           </NavLink>
         ))}
+        
+        {/* Developer Tools in Mobile */}
+        <div className="top-navigation__mobile-dev">
+          {devLinks.map((link) => (
+            <NavLink
+              key={link.to}
+              to={link.to}
+              className={({ isActive }) =>
+                `top-navigation__mobile-dev-link ${isActive ? 'top-navigation__mobile-dev-link--active' : ''}`
+              }
+              onClick={closeMobileMenu}
+            >
+              {link.label}
+            </NavLink>
+          ))}
+        </div>
       </div>
     </nav>
   );
