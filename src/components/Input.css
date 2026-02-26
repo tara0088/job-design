@@ -1,0 +1,103 @@
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.input-label {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+}
+
+.input-field {
+  width: 100%;
+  padding: 10px 14px;
+  font-family: var(--font-sans);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-normal);
+  color: var(--color-text-primary);
+  background-color: var(--color-background-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  transition: border-color var(--transition-base);
+}
+
+.input-field::placeholder {
+  color: var(--color-text-secondary);
+  opacity: 0.5;
+}
+
+.input-field:hover {
+  border-color: var(--color-text-secondary);
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: var(--color-accent);
+}
+
+.input-field:disabled {
+  background-color: var(--color-border-subtle);
+  cursor: not-allowed;
+}
+
+.input-field--error {
+  border-color: var(--color-accent);
+}
+
+.input-field--error:focus {
+  border-color: var(--color-accent);
+}
+
+.input-field--textarea {
+  min-height: 120px;
+  resize: vertical;
+  line-height: var(--line-height-relaxed);
+}
+
+.input-select-wrapper {
+  position: relative;
+}
+
+.input-field--select {
+  appearance: none;
+  padding-right: 40px;
+  cursor: pointer;
+}
+
+.input-select-wrapper::after {
+  content: '';
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid var(--color-text-secondary);
+  pointer-events: none;
+}
+
+.input-error {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-sans);
+  font-size: var(--font-size-sm);
+  color: var(--color-accent);
+}
+
+.input-error__icon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+.input-helper {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}

@@ -1,0 +1,64 @@
+.prompt-box {
+  background-color: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.prompt-box__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-1) var(--space-1) var(--space-1) var(--space-2);
+  background-color: var(--color-border-subtle);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.prompt-box__label {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--letter-spacing-wide);
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.prompt-box__copy-btn {
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.prompt-box:hover .prompt-box__copy-btn,
+.prompt-box__copy-btn:focus-visible {
+  opacity: 1;
+}
+
+.prompt-box__icon {
+  width: 14px;
+  height: 14px;
+}
+
+.prompt-box__content {
+  margin: 0;
+  padding: var(--space-2);
+  font-family: 'SF Mono', Monaco, monospace;
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-relaxed);
+  color: var(--color-text-secondary);
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-x: auto;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.prompt-box__content code {
+  font-family: inherit;
+}
+
+/* Always show copy button on touch devices */
+@media (hover: none) {
+  .prompt-box__copy-btn {
+    opacity: 1;
+  }
+}
