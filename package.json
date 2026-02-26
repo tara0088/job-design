@@ -8,13 +8,18 @@
     "build": "vite build",
     "preview": "vite preview"
   },
-  "keywords": ["react", "design-system", "job-notification"],
+  "keywords": [
+    "react",
+    "design-system",
+    "job-notification"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@vitejs/plugin-react": "^5.1.4",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
+    "react-router-dom": "^7.13.1",
     "vite": "^7.3.1"
   }
 }

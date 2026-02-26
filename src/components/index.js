@@ -6,6 +6,7 @@
 
 // Layout Components
 export { TopBar } from './TopBar';
+export { TopNavigation } from './TopNavigation';
 export { ContextHeader } from './ContextHeader';
 export { Workspace, PrimaryPanel, SecondaryPanel } from './Workspace';
 export { ProofFooter } from './ProofFooter';

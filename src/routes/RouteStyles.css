@@ -1,0 +1,11 @@
+/**
+ * Route Page Styles
+ * 
+ * Shared styles for all route pages.
+ */
+
+.route-page {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
