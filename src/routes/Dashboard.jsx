@@ -1,21 +1,30 @@
 import React from 'react';
 import { ContextHeader } from '../components/ContextHeader';
 import { Workspace } from '../components/Workspace';
+import { EmptyState } from '../components/EmptyState';
 import './RouteStyles.css';
 
 /**
  * Dashboard Route
  * 
- * Placeholder page for the main dashboard.
+ * Clean empty state:
+ * "No jobs yet. In the next step, you will load a realistic dataset."
  */
 export function Dashboard() {
   return (
     <div className="route-page">
       <ContextHeader 
         title="Dashboard"
-        subtitle="This section will be built in the next step."
+        subtitle="Your job matches will appear here."
       />
-      <Workspace />
+      <Workspace
+        primary={
+          <EmptyState
+            title="No jobs yet"
+            description="In the next step, you will load a realistic dataset."
+          />
+        }
+      />
     </div>
   );
 }

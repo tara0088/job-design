@@ -1,17 +1,19 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { TopNavigation } from './components/TopNavigation';
-import { Dashboard, Saved, Digest, Settings, Proof, NotFound } from './routes';
+import { LandingPage, Dashboard, Saved, Digest, Settings, Proof, NotFound } from './routes';
 import './App.css';
 
 /**
  * App Component with Routing
  * 
+ * Job Notification Tracker
+ * 
  * Routes:
- * - /           -> Dashboard
+ * - /           -> Landing Page
  * - /dashboard  -> Dashboard
  * - /saved      -> Saved Jobs
- * - /digest     -> Job Digest
+ * - /digest     -> Daily Digest
  * - /settings   -> Settings
  * - /proof      -> Proof
  * - *           -> 404 Not Found
@@ -23,7 +25,7 @@ function App() {
         <TopNavigation />
         <main className="app__main">
           <Routes>
-            <Route path="/" element={<Dashboard />} />
+            <Route path="/" element={<LandingPage />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/saved" element={<Saved />} />
             <Route path="/digest" element={<Digest />} />

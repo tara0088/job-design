@@ -36,7 +36,7 @@ export function TopNavigation() {
       <div className="top-navigation__container">
         {/* Logo / App Name */}
         <NavLink to="/" className="top-navigation__brand" onClick={closeMobileMenu}>
-          Job Notification App
+          Job Notification Tracker
         </NavLink>
 
         {/* Desktop Navigation */}

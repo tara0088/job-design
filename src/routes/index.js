@@ -4,6 +4,7 @@
  * All application routes exported from a single entry point.
  */
 
+export { LandingPage } from './LandingPage';
 export { Dashboard } from './Dashboard';
 export { Saved } from './Saved';
 export { Digest } from './Digest';
