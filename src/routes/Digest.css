@@ -1,0 +1,202 @@
+/**
+ * Digest Page Styles
+ * 
+ * Email-style layout with premium design system compliance:
+ * - White card centered in off-white background
+ * - Serif headings
+ * - Clean spacing
+ * - Max width 720px
+ */
+
+.digest-content {
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 0 var(--space-2);
+}
+
+.digest-generate-section {
+  margin-bottom: var(--space-3);
+}
+
+.digest-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.digest-card {
+  background-color: white;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.digest-header {
+  text-align: center;
+  padding-bottom: var(--space-2);
+  margin-bottom: var(--space-2);
+}
+
+.digest-title {
+  font-family: var(--font-serif);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin: 0 0 var(--space-1) 0;
+  line-height: var(--line-height-tight);
+}
+
+.digest-subtitle {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+  margin: 0 0 var(--space-2) 0;
+}
+
+.digest-divider {
+  height: 1px;
+  background-color: var(--color-border);
+  width: 60px;
+  margin: 0 auto;
+}
+
+.digest-jobs {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-bottom: var(--space-3);
+}
+
+.digest-job-item {
+  padding: var(--space-2);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  background-color: var(--color-background);
+  transition: border-color var(--transition-fast);
+}
+
+.digest-job-item:hover {
+  border-color: var(--color-border);
+}
+
+.digest-job-header {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  margin-bottom: var(--space-1);
+}
+
+.digest-job-rank {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-secondary);
+  min-width: 24px;
+}
+
+.digest-job-info {
+  flex: 1;
+}
+
+.digest-job-title {
+  font-family: var(--font-serif);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  margin: 0 0 4px 0;
+  line-height: var(--line-height-tight);
+}
+
+.digest-job-company {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.digest-job-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.digest-job-meta {
+  display: flex;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.digest-job-location,
+.digest-job-experience {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.digest-footer {
+  text-align: center;
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--color-border);
+  margin-top: var(--space-2);
+}
+
+.digest-footer-text {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin: 0 0 var(--space-1) 0;
+}
+
+.digest-note {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  font-style: italic;
+  margin: 0;
+}
+
+.digest-actions {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+  margin-top: var(--space-2);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .digest-content {
+    padding: 0 var(--space-1);
+  }
+  
+  .digest-title {
+    font-size: var(--font-size-xl);
+  }
+  
+  .digest-job-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-1);
+  }
+  
+  .digest-job-details {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-1);
+  }
+  
+  .digest-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .digest-job-meta {
+    width: 100%;
+    justify-content: space-between;
+  }
+}
