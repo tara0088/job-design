@@ -1,0 +1,145 @@
+/**
+ * JobCard Styles
+ * 
+ * Following design system:
+ * - Off-white background
+ * - Deep red accent
+ * - Serif headings
+ * - Calm whitespace
+ * - No heavy shadows
+ */
+
+.job-card {
+  margin-bottom: var(--space-2);
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+}
+
+.job-card:hover {
+  transform: translateY(-2px);
+}
+
+.job-card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--space-1);
+}
+
+.job-card__title-section {
+  flex: 1;
+}
+
+.job-card__title {
+  font-family: var(--font-serif);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--line-height-tight);
+  color: var(--color-text-primary);
+  margin: 0 0 4px 0;
+}
+
+.job-card__company {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+.job-card__source-badge {
+  align-self: flex-start;
+  margin-left: var(--space-1);
+}
+
+.job-card__details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-1);
+  flex-wrap: wrap;
+  gap: var(--space-1);
+}
+
+.job-card__location-mode {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+.job-card__location,
+.job-card__mode {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.job-card__location::before {
+  content: "📍 ";
+  margin-right: 4px;
+}
+
+.job-card__mode::before {
+  content: "🏢 ";
+  margin-right: 4px;
+}
+
+.job-card__experience-salary {
+  display: flex;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+.job-card__experience,
+.job-card__salary {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+}
+
+.job-card__experience::before {
+  content: "💼 ";
+  margin-right: 4px;
+}
+
+.job-card__salary::before {
+  content: "💰 ";
+  margin-right: 4px;
+}
+
+.job-card__meta {
+  margin-bottom: var(--space-2);
+}
+
+.job-card__posted {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  background-color: var(--color-border-subtle);
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+}
+
+.job-card__actions {
+  display: flex;
+  gap: var(--space-1);
+  justify-content: flex-end;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .job-card__details {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .job-card__location-mode,
+  .job-card__experience-salary {
+    width: 100%;
+  }
+  
+  .job-card__actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+}

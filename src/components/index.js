@@ -22,3 +22,8 @@ export { PromptBox } from './PromptBox';
 export { ErrorState } from './ErrorState';
 export { EmptyState } from './EmptyState';
 export { LoadingState, SkeletonCard, SkeletonText } from './LoadingState';
+
+// Job Components
+export { JobCard } from './JobComponents/JobCard';
+export { ViewJobModal } from './JobComponents/ViewJobModal';
+export { FilterBar } from './JobComponents/FilterBar';
